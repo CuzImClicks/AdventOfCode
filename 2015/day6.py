@@ -20,12 +20,21 @@ for n in range(0, 1000):
 for value, start, end in processed:
     width = end[0] - start[0]
     height = end[1] - start[1]
-
+    '''
     for w in range(0, width+1):
         for h in range(0, height+1):
             if value == TOGGLE:
                 grid[(start[0]+w, start[1]+h)] = abs(grid[(start[0]+w, start[1]+h)]-1)
             else:
-                grid[(start[0]+w, start[1]+h)] = value
+                grid[(start[0]+w, start[1]+h)] = value'''
+    for w in range(0, width+1):
+        for h in range(0, height+1):
+            if value == TOGGLE:
+                grid[(start[0]+w, start[1]+h)] += 2
+            elif value == OFF:
+                if grid[(start[0]+w, start[1]+h)] > 0:
+                    grid[(start[0]+w, start[1]+h)] -= 1
+            elif value == ON:
+                grid[(start[0]+w, start[1]+h)] += 1
 
 print(sum(grid.values()))
