@@ -6,7 +6,6 @@ def get_trees(dx, dy) -> int:
 
         v = [x for x in f.read().splitlines()[::dy]]
 
-
     trees = 0
     x = 0
     for y in v:
@@ -17,12 +16,19 @@ def get_trees(dx, dy) -> int:
     return trees
 
 
-to_calc = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
-total = []
-for tup in to_calc:
-    print(f"{tup[0]} | {tup[1]}")
-    print(get_trees(tup[0], tup[1]))
-    total.append(get_trees(tup[0], tup[1]))
+def task_1():
+    print(get_trees(3, 1))
 
-print(math.prod(total))
+
+def task_2():
+    to_calc = [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
+    total = []
+    for tup in to_calc:
+        total.append(get_trees(tup[0], tup[1]))
+
+    print(math.prod(total))
+
+
+task_1()
+task_2()
 
