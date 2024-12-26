@@ -1,37 +1,44 @@
+pub fn part1(input: Vec<&str>) -> anyhow::Result<usize> {
+    let len = input[0].len();
+    let mut total = 0;
+    let mut all: String = String::new();
+    input.into_iter().for_each(|line| all.push_str(line));
+    println!("{}", &all);
 
-
-pub fn part1(mut input: Vec<&str>) -> anyhow::Result<usize> {
-    
-    let mut total: usize = 0;
-    let xmas: &[char; 4] = &['X', 'M', 'A', 'S'];
-    let mut smax: [char; 4] = xmas.clone(); 
-    smax.reverse();
-    let smax = &smax;
-    
-    for line in &input {
-        let chars: Vec<char> = line.chars().collect();
-        for i in 0..(chars.len() - 3) {
-            let three_chars = &chars[i..=i+3];
-            if three_chars ==  xmas || three_chars == smax {
+    for i in 0..all.len() - 3 {
+        if i % len < (i + 3) % len {
+            let slice = &all[i..=i + 3];
+            if slice == "XMAS" || slice == "SAMX" {
                 total += 1;
             }
         }
-    }
-    
-    let rotated: Vec<String> = input.iter().map(|line| {
-        let chars: Vec<char> = line.chars().collect();
-        let mut rotated: Vec<char> = vec![];
-        for i in 0..chars.len() {
-            rotated.push(chars[(i + 1) % chars.len()]);
+        if i + 1 + 3 * len <= all.len() {
+            let first: &str = &all[i..i + 1];
+            let second = &all[i + len .. i + len + 1];
+            let third = &all[i + 2 * len .. i + 2 * len + 1];
+            let fourth = &all[i + 3 * len..i + 3 * len + 1];
+            if (first == "X" && second == "M" && third == "A" && fourth == "S")
+                || (first == "S" && second == "A" && third == "M" && fourth == "X") {
+                total += 1;
+            }
         }
-        rotated.iter().collect::<String>()
-    }).collect();
-    
-    for line in &rotated {
-        let chars: Vec<char> = line.chars().collect();
-        for i in 0..(chars.len() - 3) {
-            let three_chars = &chars[i..=i+3];
-            if three_chars ==  xmas || three_chars == smax {
+        if i + 4 + 3 * len <= all.len() && (i % len < (i + 3) % len) {
+            let first = &all[i..i + 1];
+            let second = &all[i + 1 + len..i + 2 + len];
+            let third = &all[i + 2 + 2 * len..i + 3 + 2 * len];
+            let fourth = &all[i + 3 + 3 * len..i + 4 + 3 * len];
+            if (first == "X" && second == "M" && third == "A" && fourth == "S")
+                || (first == "S" && second == "A" && third == "M" && fourth == "X") {
+                total += 1;
+            }
+        }
+        if i - 2 + 3 * len <= all.len() && (i % len > (i - 3) % len) {
+            let first: &str = &all[i..i + 1];
+            let second = &all[i - 1 + len..i + len];
+            let third = &all[i - 2 + 2 * len..i - 1 + 2 * len];
+            let fourth = &all[i - 3 + 3 * len..i - 2 + 3 * len];
+            if (first == "X" && second == "M" && third == "A" && fourth == "S")
+                || (first == "S" && second == "A" && third == "M" && fourth == "X") {
                 total += 1;
             }
         }
