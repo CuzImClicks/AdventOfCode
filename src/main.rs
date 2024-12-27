@@ -46,6 +46,9 @@ fn main() -> anyhow::Result<()> {
             if part == 1u8 {
                 let content = get_input(path)?;
                 println!("{}", day4::part1(content.lines().collect())?);
+            } else if part == 2u8 {
+                let content = get_input(path)?;
+                println!("{}", day4::part2(content.lines().collect())?);
             }
         }
         _ => {

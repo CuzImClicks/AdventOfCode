@@ -46,3 +46,25 @@ pub fn part1(input: Vec<&str>) -> anyhow::Result<usize> {
 
     Ok(total)
 }
+
+
+pub fn part2(input: Vec<&str>) -> anyhow::Result<usize> {
+    let len = input[0].len();
+    let mut total = 0;
+    let mut all: String = String::new();
+    input.into_iter().for_each(|line| all.push_str(line));
+    
+    for i in len..all.len() {
+        if i % len != 0 && i + len + 1 < all.len() {
+            if &all[i..i+1] == "A" {
+                if     (&all[i-len-1..i-len] == "M" && &all[i+len+1..i+len+2] == "S") || (&all[i-len-1..i-len] == "S" && &all[i+len+1..i+len+2] == "M") {
+                    if (&all[i+len-1..i+len] == "S" && &all[i-len+1..i-len+2] == "M") || (&all[i+len-1..i+len] == "M" && &all[i-len+1..i-len+2] == "S") {
+                        //println!("{}\n{}\n{}\n{}\n", &all[i-len-1..i-len+2], &all[i-1..i+2], &all[i+len-1..i+len+2], i);
+                        total += 1;
+                    }
+                }
+            }
+        }
+    }
+    Ok(total)
+}
