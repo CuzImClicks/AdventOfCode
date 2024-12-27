@@ -1,6 +1,6 @@
 #![feature(vec_push_within_capacity)]
 
-use std::path::PathBuf;
+use std::{fs, path::PathBuf};
 use anyhow::Context;
 use crate::inputs::get_input;
 
@@ -9,6 +9,7 @@ mod day1;
 mod day2;
 mod day3;
 mod day4;
+mod day5;
 
 fn main() -> anyhow::Result<()> {
     
@@ -49,6 +50,12 @@ fn main() -> anyhow::Result<()> {
             } else if part == 2u8 {
                 let content = get_input(path)?;
                 println!("{}", day4::part2(content.lines().collect())?);
+            }
+        }
+        5 => {
+            if part == 1u8 {
+                let content = fs::read_to_string(path)?;
+                println!("{}", day5::part1(content)?);
             }
         }
         _ => {
